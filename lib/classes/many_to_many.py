@@ -9,10 +9,10 @@ class Coffee:
     
     @name.setter
     def name(self, value):
-        if isinstance(value, str) and len(value) >= 3:
+        if isinstance(value, str) and len(value) >= 2:
             self._name = value
         else: 
-            raise Exception("name must be a string of at least 3 characters.")
+            raise Exception("name must be a string of at least 2 characters.")
         
     def orders(self):
         return [order for order in Order.all if order.coffee == self and isinstance(order, Order)]
