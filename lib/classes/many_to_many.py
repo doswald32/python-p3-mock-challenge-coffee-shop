@@ -1,7 +1,7 @@
 
 class Coffee:
     def __init__(self, name):
-        self._name = name
+        self.name = name
 
     @property
     def name(self):
@@ -9,7 +9,7 @@ class Coffee:
     
     @name.setter
     def name(self, value):
-        if isinstance(value, str) and len(value) >= 2:
+        if not hasattr(self, 'name') and isinstance(value, str) and len(value) > 2:
             self._name = value
         else: 
             raise Exception("name must be a string of at least 2 characters.")
@@ -52,7 +52,7 @@ class Coffee:
 
 class Customer:
     def __init__(self, name):
-        self._name = name
+        self.name = name
 
     @property
     def name(self):
@@ -85,8 +85,8 @@ class Customer:
     def most_aficionado(cls, coffee):
         most_expensive_order = None
         high_price = 0
-        for order in cls.orders:
-            if order.coffee == coffee:
+        for order in coffee.orders():
+           # if order.coffee == coffee:
                 if order.price > high_price:
                     high_price = order.price
                     most_expensive_order = order.customer
@@ -101,9 +101,9 @@ class Order:
     all = []
 
     def __init__(self, customer, coffee, price):
-        self._customer = customer
-        self._coffee = coffee
-        self._price = price
+        self.customer = customer
+        self.coffee = coffee
+        self.price = price
         Order.all.append(self)
 
     @property
@@ -112,7 +112,7 @@ class Order:
     
     @price.setter
     def price(self, value):
-        if isinstance(value, float) and 1.0 <= value <= 10.0:
+        if not hasattr(self, 'price') and (isinstance(value, float) or isinstance(value, int)) and 1.0 <= value <= 10.0:
             self._price = value
         else:
             raise Exception("price must be a number between 1-10.")
